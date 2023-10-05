@@ -1,0 +1,294 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Full Stack Restaurants App",
+    "description": "Order food online",
+    "version": "1.0.0"
+  },
+  "host": "api.cyril-grazefullstackrestaurantapplication.com",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "jwt": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  },
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Index"
+        ],
+        "description": "Here for convenience",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/restaurants/": {
+      "get": {
+        "tags": [
+          "Restaurants"
+        ],
+        "description": "Listing of all restaurants",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/restaurants/dishes": {
+      "get": {
+        "tags": [
+          "Restaurants"
+        ],
+        "description": "Listing of all dishes",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/restaurants/{restaurantId}": {
+      "get": {
+        "tags": [
+          "Restaurants"
+        ],
+        "description": "Get details for one restaurant by ID",
+        "parameters": [
+          {
+            "name": "restaurantId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Restaurant ID to lookup"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/checkout/create-payment-intent": {
+      "post": {
+        "tags": [
+          "Checkout"
+        ],
+        "description": "Creates a Stripe payment intent which will be used for payment processing",
+        "parameters": [
+          {
+            "name": "items",
+            "description": "Array of Dish items",
+            "type": "array",
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/checkout/order": {
+      "post": {
+        "tags": [
+          "Checkout"
+        ],
+        "description": "Create an order based on a list of items and a payment intent",
+        "parameters": [
+          {
+            "name": "paymentIntent",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "paymentIntent": {
+                  "example": "any"
+                },
+                "items": {
+                  "example": "any"
+                }
+              }
+            },
+            "description": "Stripe API response object",
+            "type": "object"
+          },
+          {
+            "name": "items",
+            "description": "Array of Dish items",
+            "type": "array",
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/checkout/history": {
+      "get": {
+        "tags": [
+          "Checkout"
+        ],
+        "description": "Get user order history",
+        "parameters": [],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/users/": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Webhook for CloudFunctions `onAuthCreate` trigger",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "User email on account",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "displayName",
+            "description": "Display name for user",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "uid",
+            "description": "Google Firebase UserID",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "photoURL",
+            "description": "User avatar",
+            "type": "string",
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Allows user to retrieve their own profile",
+        "parameters": [],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "description": "Allows user to update their own profile",
+        "parameters": [
+          {
+            "name": "displayName",
+            "description": "Display name for user",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "description",
+            "description": "User description",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "imageUrl",
+            "description": "User avatar",
+            "type": "string",
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Allows user registration directly on API via Admin SDK",
+        "parameters": [
+          {
+            "name": "displayName",
+            "description": "Display name for user",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "email",
+            "description": "User email on account",
+            "type": "string",
+            "in": "body"
+          },
+          {
+            "name": "password",
+            "description": "Authentication password to set",
+            "type": "string",
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
