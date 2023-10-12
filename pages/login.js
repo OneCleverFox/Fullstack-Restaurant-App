@@ -15,19 +15,26 @@ import {
 import { login } from "../components/auth";
 import AppContext from "../components/context";
 
+
+// State-Variablen zur Verwaltung von Benutzereingaben und UI-Status
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  // Verwende den Next.js Router für die Navigation
   const router = useRouter();
+   // Verwende den AppContext aus dem globalen Kontext
   const appContext = useContext(AppContext);
 
+  // Überprüfe, ob der Benutzer bereits authentifiziert ist und leite ihn gegebenenfalls um
   useEffect(() => {
     if (appContext.isAuthenticated) {
-      router.push("/"); // redirect if you're already logged in
+      router.push("/"); // Umleitung, wenn der Benutzer bereits eingeloggt ist
     }
   }, []);
 
+    // Funktion zum Aktualisieren der State-Variablen bei Eingabeänderungen
   function onChange(event) {
     updateData({ ...data, [event.target.name]: event.target.value });
   }
@@ -89,11 +96,11 @@ function Login(props) {
                         login(data.identifier, data.password)
                           .then((res) => {
                             setLoading(false);
-                            // set authed User in global context to update header/app state
+                            // Setze den authentifizierten Benutzer im globalen Kontext, um den Header/Anwendungsstatus zu aktualisieren
                             appContext.setUser(res.data.user);
                           })
                           .catch((error) => {
-                            //setError(error.response.data);
+                            setError(error.response.data);
                             setLoading(false);
                           });
                       }}

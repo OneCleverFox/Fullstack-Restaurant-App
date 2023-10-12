@@ -1,11 +1,10 @@
 import React from "react";
-
 import { CardElement } from "@stripe/react-stripe-js";
 
 function CardSection(props) {
-
+  // Funktion zum Auslösen einer Bestätigung der Bestellung und Anzeige einer Erfolgsmeldung
   function orderAlert() {
-    props.submitOrder(),
+    props.submitOrder();
     alert("Order Successful!");
   }
 
@@ -28,6 +27,7 @@ function CardSection(props) {
               <div className="order-button-wrapper">
                 <button onClick={orderAlert}>Confirm order</button>
               </div>
+              {/* Anzeige der Stripe-Fehlermeldung, falls vorhanden */}
               {props.stripeError ? (
                 <div>{props.stripeError.toString()}</div>
               ) : null}
@@ -38,6 +38,7 @@ function CardSection(props) {
       </div>
       <style jsx>
         {`
+          // Stildefinitionen für die Komponente
           .order-button-wrapper {
             display: flex;
             width: 100%;
@@ -49,4 +50,5 @@ function CardSection(props) {
     </div>
   );
 }
+
 export default CardSection;

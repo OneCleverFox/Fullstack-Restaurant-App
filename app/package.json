@@ -23,14 +23,14 @@
     "strapi-connector-mongoose": "3.6.8"
   },
   "author": {
-    "name": "Strapi develop"
+    "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "c7c4ea55-92f6-435e-a18d-fd591329e41f"
+    "uuid": "c0c98524-e068-49d1-9be8-6a011edf9857"
   },
   "engines": {
     "node": ">=10.16.0 <=14.x.x",
-    "npm": "^6.0.0"
+    "npm": "^6.13.4"
   },
   "license": "MIT"
 }

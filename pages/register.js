@@ -15,12 +15,16 @@ import {
 import { registerUser } from "../components/auth";
 import AppContext from "../components/context";
 
-
+// State-Variablen zur Verwaltung von Benutzereingaben und UI-Status
 const Register = () => {
   const [data, setData] = useState({ email: "", username: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
+
+  // Verwende den AppContext aus dem globalen Kontext
   const appContext = useContext(AppContext);
+
+  // Funktion zum Speichern des Benutzernamens im lokalen Speicher (localStorage)
   const setUsername = (username) => {
     if(typeof window !== 'undefined') {
       console.log('register');
@@ -101,12 +105,15 @@ const Register = () => {
                       disabled={loading}
                       onClick={() => {
                         setLoading(true);
+
+                         // Registriere den Benutzer und setze ihn im globalen Kontext-Objekt
                         registerUser(data.username, data.email, data.password)
                           .then((res) => {
-                            // set authed user in global context object
+                            // Setze den authentifizierten Benutzer im globalen Kontext, um den Header/Anwendungsstatus zu aktualisieren
                             appContext.setUser(res.data.user);
                             setLoading(false);
                             console.log(`registered user: ${JSON.stringify(res.data)}`)
+                            // Speichere den Benutzernamen im lokalen Speicher
                             setUsername(res.data.user.username);
                             alert("Account Created");
                           })

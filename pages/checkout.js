@@ -14,9 +14,9 @@ function Checkout() {
   // isAuthenticated is passed to the cart component to display order button
   //const isAuthenticated  = true;
   
-  // load stripe to inject into elements components
+  // lade stripe mit Test
   const stripePromise = loadStripe(
-    "pk_test_51MV3RwFW6iYdjUrTtFIpYrMrlS3fnrii32CskIE58Spz5su9gXkIqwuDWzMCmlW5UN9JD8OIPY55NktQw5NLeD6h00YWI8GJqY"
+    "pk_test_f3duw0VsAEM2TJFMtWQ90QAT"
   );
 
   return (

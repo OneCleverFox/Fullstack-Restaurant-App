@@ -2,15 +2,7 @@ import {useRouter} from "next/router"
 import {gql,useQuery} from '@apollo/client';
 import {useState, useContext} from 'react'
 import AppContext from "./context"
-import {
-  Button,
-  Card,
-  CardBody,
-  CardImg,
-  CardText,
-  CardTitle,
-  Row,
-  Col} from "reactstrap";
+import {  Button, Card, CardBody, CardImg, CardText, CardTitle, Row, Col} from "reactstrap";
 function Dishes({restId}){
   const [restaurantID, setRestaurantID] = useState()
   const {addItem} = useContext(AppContext)

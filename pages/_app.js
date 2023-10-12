@@ -7,31 +7,36 @@ import Cookie from "js-cookie"
 
 
 function MyApp(props){
+  // Verwende useContext, um den Wert aus dem AppContext zu erhalten
   var {cart,addItem,removeItem, user, setUser} = useContext(AppContext)
+
+  // Verwende useState, um einen lokalen Zustand zu erstellen
   const [state,setState] = useState({cart:cart});
   const { Component, pageProps } = props;
   
-  
+  // setUser-Funktion, die den Zustand "user" aktualisiert
   setUser = (user) => {
     setState({ user });
   };
+
+  // addItem-Funktion, um Artikel zum Warenkorb hinzuzufügen
   addItem = (item) => {
     let { items } = state.cart;
-    //check for item already in cart
-    //if not in cart, add item if item is found increase quanity ++
+    
     let foundItem = true;
     if(items.length > 0){
       foundItem = items.find((i) => i.id === item.id);
-     
+
+      // Wenn das Item nicht im Warenkorb ist, füge es hinzu
       if(!foundItem) foundItem = false;
     }
     else{
       foundItem = false;
     }
     console.log(`Found Item value: ${JSON.stringify(foundItem)}`)
-    // if item is not new, add to cart, set quantity to 1
+    // wenn es nicht gefunden wurde auf 1 setzen
     if (!foundItem) {
-      //set quantity property to 1
+      // setze gefunden auf 1
     
       let temp = JSON.parse(JSON.stringify(item));
       temp.quantity = 1;
@@ -39,10 +44,12 @@ function MyApp(props){
           items: [...state.cart.items,temp],
           total: state.cart.total + item.price,
       }
+
+      // Aktualisiere den lokalen Zustand
       setState({cart:newCart})
       console.log(`Total items: ${JSON.stringify(newCart)}`)
     } else {
-      // we already have it so just increase quantity ++
+      
       console.log(`Total so far:  ${state.cart.total}`)
       newCart= {
           items: items.map((item) =>{
@@ -58,9 +65,11 @@ function MyApp(props){
     console.log(`state reset to cart:${JSON.stringify(state)}`)
      
   };
+
+// removeItem-Funktion, um Artikel aus dem Warenkorb zu entfernen
   removeItem = (item) => {
     let { items } = state.cart;
-    //check for item already in cart
+    //check ob es in cart ist
     const foundItem = items.find((i) => i.id === item.id);
     if (foundItem.quantity > 1) {
       var newCart = {
@@ -73,7 +82,7 @@ function MyApp(props){
       total: state.cart.total - item.price,
       }
       //console.log(`NewCart after remove: ${JSON.stringify(newCart)}`)
-    } else { // only 1 in the cart so remove the whole item
+    } else { 
       console.log(`Try remove item ${JSON.stringify(foundItem)}`)
       const index = items.findIndex((i) => i.id === foundItem.id);
       items.splice(index, 1);
@@ -85,12 +94,10 @@ function MyApp(props){
   return (
     <AppContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem,isAuthenticated:false,user:null,setUser:()=>{}}}>
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossOrigin="anonymous"
-        />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+        crossorigin="anonymous"></link>
       </Head>
     
       <Layout>

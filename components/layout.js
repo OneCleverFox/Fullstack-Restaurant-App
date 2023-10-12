@@ -22,13 +22,14 @@ const {user} = useContext(AppContext);
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossOrigin="anonymous"
-        />
-        <script src="https://js.stripe.com/v3" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+        crossorigin="anonymous"></link>
+        <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+        crossorigin="anonymous"></script>
       </Head>
       <header suppressHydrationWarning>
         <style jsx>
@@ -44,16 +45,16 @@ const {user} = useContext(AppContext);
         </style>
         <Nav suppressHydrationWarning className="navbar navbar-dark bg-dark">
           <NavItem>
-            <Link href="/">
-              <a className="navbar-brand">Home</a>
+            <Link href="/" className="navbar-brand">
+               Home
             </Link>
           </NavItem>
           <NavItem className="ml-auto">
             {user ? (
               <h5>{user.username}</h5>
             ) : (
-              <Link href="/register">
-                <a className="nav-link"> Sign up</a>
+              <Link href="/register" className="nav-link">
+                Sign up
               </Link>
             )}
           </NavItem>
@@ -71,8 +72,8 @@ const {user} = useContext(AppContext);
                 </a>
               </Link>
             ) : (
-              <Link href="/login">
-                <a className="nav-link">Sign in</a>
+              <Link href="/login" className="nav-link">
+                 Sign in
               </Link>
             )}
           </NavItem>

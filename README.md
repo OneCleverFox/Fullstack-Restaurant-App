@@ -8,7 +8,16 @@ To Run on your machine, pull the files into a local folder,
 install Docker, 
 "docker-compose up"  to start the backend files, 
 and build and run the image from the Dockerfile to get the front end running.  
+generate a .env file with following input:
 
+DATABASE_CLIENT=mongo
+DATABASE_NAME=strapi
+DATABASE_HOST=e.g.Mongo
+DATABASE_PORT=generate Port e.g. 27017
+DATABASE_USERNAME=generate User
+DATABASE_PASSWORD= generate strong Password
+MONGO_INITDB_ROOT_USERNAME= whats the username?!
+MONGO_INITDB_ROOT_PASSWORD=generate strong Password
 
 Steps for...
 install npm in local folder
@@ -18,7 +27,7 @@ install npm in backend folder
 
 
 **Styles:**
-bootstrap
+bootstrap --> reactstrap
 
 
 
@@ -27,4 +36,5 @@ bootstrap
 next.js
 React
 Strapi
-Mongo DB
+MongoDB
+Stripe for payment
