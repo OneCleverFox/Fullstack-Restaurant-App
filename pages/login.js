@@ -90,7 +90,7 @@ function Login(props) {
                     </span>
                     <Button
                       style={{ float: "right", width: 120 }}
-                      color="primary"
+                      color="success"
                       onClick={() => {
                         setLoading(true);
                         login(data.identifier, data.password)

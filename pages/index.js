@@ -22,7 +22,7 @@ function Home() {
           <div className="search">
               <h2> Local Restaurants</h2>
                 <InputGroup >
-                <InputGroupText addonType="append"> Search </InputGroupText>
+                <InputGroupText addontype="append"> Search </InputGroupText>
                 <Input
                     onChange={(e) =>
                     setQuery(e.target.value.toLocaleLowerCase())

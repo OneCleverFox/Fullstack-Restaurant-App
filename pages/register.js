@@ -101,7 +101,7 @@ const Register = () => {
                     </span>
                     <Button
                       style={{ float: "right", width: 120 }}
-                      color="primary"
+                      color="success"
                       disabled={loading}
                       onClick={() => {
                         setLoading(true);
