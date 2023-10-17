@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTheme } from 'styled-components';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Flex, Padded, Separator } from '@buffetjs/core';
 import { LoadingIndicator, Tooltip } from '@buffetjs/styles';

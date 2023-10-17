@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
-import Link from 'next/link';
+import { Link, useLocation } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import { useIntl } from 'react-intl';
 import { RelationDPState } from 'strapi-helper-plugin';

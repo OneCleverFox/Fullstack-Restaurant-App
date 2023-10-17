@@ -1,8 +1,7 @@
 import React, { useCallback, useState, useEffect, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useLocation } from 'react-router-dom';
-import Link from 'next/link';
+import { Link, useLocation } from 'react-router-dom';
 import { findIndex, get, isArray, isEmpty, set } from 'lodash';
 import {
   DropdownIndicator,

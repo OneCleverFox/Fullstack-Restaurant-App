@@ -1,5 +1,4 @@
-import { Link as Base } from 'next/link';
-
+import { Link as Base } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Link = styled(Base)`
