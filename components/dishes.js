@@ -8,21 +8,34 @@ function Dishes({restId}){
   const {addItem} = useContext(AppContext)
 
 const GET_RESTAURANT_DISHES = gql`
-  query($id: ID!) {
-    restaurant(id: $id) {
+query ($id: ID!) {
+  restaurant (id: $id) {
+    data {
       id
-      name
-      dishes {
-        id
+      attributes {
         name
         description
-        price
-        image {
-          url
+        dishes {
+          data {
+            attributes {
+              name
+              description
+              price
+              image {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
+}
+
 `;
 
   const router = useRouter();
@@ -33,7 +46,7 @@ const GET_RESTAURANT_DISHES = gql`
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>ERROR here</p>;
-  if (!data) return <p>Not found</p>;
+  if (!data || !data.restaurants || !data.restaurant.dishes.data.length) return <h1>No Dishes</h1>;
 
   let restaurant = data.restaurant;
   console.log(restId)
@@ -41,17 +54,17 @@ const GET_RESTAURANT_DISHES = gql`
 
     return (
       <>
-          {restaurant.dishes.map((res) => (
+          {restaurant.dishes.data.map((res) => (
             <Col xs="6" sm="4" style={{ padding: 0 }} key={res.id}>
               <Card style={{ margin: "0 10px" }}>
                 <CardImg
                   top={true}
                   style={{ height: 150, width:150 }}
-                  src={`http://localhost:1337${res.image.url}`}
+                  src={`http://localhost:1337${res.image.data.attributes.url}`}
                 />
                 <CardBody>
-                  <CardTitle>{res.name}</CardTitle>
-                  <CardText>{res.description}</CardText>
+                  <CardTitle>{res.attributes.name}</CardTitle>
+                  <CardText>{res.attributes.description}</CardText>
                 </CardBody>
                 <div className="card-footer">
                   <Button color="info"

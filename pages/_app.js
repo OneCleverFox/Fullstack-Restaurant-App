@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import Head from "next/head";
 import AppContext from "../components/context";
-import Home from "./index"
 import Layout from "../components/layout"
-import Cookie from "js-cookie"
+import Home from "./index";
+
 
 
 function MyApp(props){
@@ -81,7 +81,7 @@ function MyApp(props){
       }}),
       total: state.cart.total - item.price,
       }
-      //console.log(`NewCart after remove: ${JSON.stringify(newCart)}`)
+      console.log(`NewCart after remove: ${JSON.stringify(newCart)}`)
     } else { 
       console.log(`Try remove item ${JSON.stringify(foundItem)}`)
       const index = items.findIndex((i) => i.id === foundItem.id);
@@ -94,10 +94,12 @@ function MyApp(props){
   return (
     <AppContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem,isAuthenticated:false,user:null,setUser:()=>{}}}>
       <Head>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
-        crossOrigin="anonymous"></link>
+      <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossOrigin="anonymous"
+        />
       </Head>
     
       <Layout>

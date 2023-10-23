@@ -10,7 +10,6 @@ import {
   CardBody,
   CardImg,
   CardText,
-  CardTitle,
   Container,
   Row,
   Col
@@ -21,26 +20,35 @@ function RestaurantList(props) {
   const { cart } = useContext(AppContext);
   const [state, setState] = useState(cart)
   const GET_RESTAURANTS = gql`
-    query {
-      restaurants {
+  query {
+    restaurants {
+      data {
         id
-        name
-        description
-        image {
-          url
+        attributes {
+          name
+          description
+          image {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
         }
       }
     }
+  }
   `;
   const { loading, error, data } = useQuery(GET_RESTAURANTS)
   if (loading) return <p>Loading...</p>;
   if (error) return <p>ERROR</p>;
   if (!data) return <p>Not found</p>;
-  console.log(`Query Data: ${data.restaurants}`)
+  console.log(`Query Data: ${data.restaurants.data}`)
+  
 
 
-  let searchQuery = data.restaurants.filter((res) => {
-    return res.name.toLowerCase().includes(props.search)
+  let searchQuery = data.restaurants.data.filter((res) => {
+    return res.attributes.name.toLowerCase().includes(props.search)
   }) || [];
 
   let restId = searchQuery[0] ? searchQuery[0].id : null;
@@ -56,9 +64,10 @@ function RestaurantList(props) {
           <CardImg
             top={true}
             style={{ height: 200 }}
-            src={
-              `http://localhost:1337` + res.image.url
-            }
+            src={`http://localhost:1337${res.image?.data?.attributes?.url || ''}`}
+            
+
+
           />
           <CardBody>
             <CardText>{res.description}</CardText>
@@ -71,7 +80,7 @@ function RestaurantList(props) {
         </Card>
       </Col>
     ))
-
+  
     return (
 
       <Container>
