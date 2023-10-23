@@ -15,9 +15,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       NODE_TLS_REJECT_UNAUTHORIZED: "0"
 
-    
-      # links:
-      # -mongo:mongo
+      
     networks:
       - strapi-app-network
     volumes:
