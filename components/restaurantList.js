@@ -55,7 +55,7 @@ function RestaurantList(props) {
 
   // definet renderer for Dishes
   const renderDishes = (restaurantID) => {
-    return (<Dishes restId={restaurantID}> </Dishes>)
+    return (<Dishes restId={restaurantID} search={props.search}> </Dishes>)
   };
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
@@ -64,17 +64,17 @@ function RestaurantList(props) {
           <CardImg
             top={true}
             style={{ height: 200 }}
-            src={`http://localhost:1337${res.image?.data?.attributes?.url || ''}`}
+            src={`http://localhost:1337${res.attributes.image.data[0].attributes.url}`}
             
 
 
           />
           <CardBody>
-            <CardText>{res.description}</CardText>
+            <CardText>{res.attributes.description}</CardText>
           </CardBody>
           <div className="card-footer">
 
-            <Button color="info" onClick={() => setRestaurantID(res.id)}>{res.name}</Button>
+            <Button color="info" onClick={() => setRestaurantID(res.id)}>{res.attributes.name}</Button>
 
           </div>
         </Card>
