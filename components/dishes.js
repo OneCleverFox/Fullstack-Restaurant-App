@@ -1,7 +1,7 @@
-import {useRouter} from "next/router"
-import {gql,useQuery} from '@apollo/client';
-import {useState, useContext} from 'react'
-import AppContext from "./context"
+import { useRouter } from "next/router";
+import { gql, useQuery } from "@apollo/client";
+import { useContext } from "react";
+import AppContext from "./context";
 import {
   Button,
   Card,
@@ -10,34 +10,36 @@ import {
   CardText,
   CardTitle,
   Row,
-  Col} from "reactstrap";
+  Col,
+} from "reactstrap";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
 
-function Dishes({restId, search}){
-  const [restaurantID, setRestaurantID] = useState()
-  const {addItem} = useContext(AppContext)
+function Dishes({ restaurantId }) {
+  const { addItem } = useContext(AppContext);
 
+  const router = useRouter();
 
-
-const GET_RESTAURANT_DISHES = gql`
-  query{
-    restaurants {
-      data {
-        id
-        attributes {
-          name
-          dishes {
-            data {
-              id
-              attributes {
-                name
-                description
-                price
-                image {
-                  data {
-                    attributes {
-                      url
+  if (restaurantId !=3) {
+    // Wenn eine Restaurant-ID ausgewählt ist, führe die spezifische Abfrage aus
+    const GET_RESTAURANT_DISHES = gql`
+      query GetRestaurantDishes($restaurantId: ID!) {
+        restaurant(id: $restaurantId) {
+          data {
+            attributes {
+              dishes {
+                data {
+                  id
+                  attributes {
+                    name
+                    description
+                    price
+                    image {
+                      data {
+                        attributes {
+                          url
+                        }
+                      }
                     }
                   }
                 }
@@ -46,67 +48,122 @@ const GET_RESTAURANT_DISHES = gql`
           }
         }
       }
-    }
-  }
-`;
+    `;
 
-const router = useRouter();
+    const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
+      variables: { restaurantId: restaurantId },
+    });
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
-
-  const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
-    variables: { id: restId},
-  });
-
-console.log('restId:', restId);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!data || !data.restaurants || data.restaurants.data.length === 0) {
-    return <p>No data found</p>;
-  }
-
-  const restaurant = data.restaurants.data.find((res) => res.id === restId);
-
-  if (restaurant){
+    const dishes = data.restaurant.data.attributes.dishes.data;
 
     return (
-      <>
-          {restaurant.attributes.dishes.data
-  .filter((dish) => dish.attributes.name.toLowerCase().includes(search.toLowerCase()))
-  .map((res) => (
-            <Col xs="6" sm="4" style={{ padding: 0 }} key={res.id}>
-              <Card style={{ margin: "0 10px" }}>
+      <Row>
+        {dishes.map((dish) => (
+          <Col key={dish.id} xs="6" sm="4">
+            <Card>
               <CardImg
-                top={true}
-                style={{ height: 150, width: 150, objectFit: 'cover' }}
-                src={res.attributes.image.data[0].attributes.url
-                  ? `${API_URL}${res.attributes.image.data[0].attributes.url}`
-                  : `${router.basePath}`}
-/>
-                <CardBody>
-                  <CardTitle>{res.attributes.name}</CardTitle>
-                  <CardText>{res.attributes.description}</CardText>
-                </CardBody>
-                <div className="card-footer">
-                  <Button
-                    outline
-                    color="primary"
-                    onClick = {()=> addItem(res)}
-                  >
-                    + Add To Cart
-                  </Button>
-                  
-                </div>
-              </Card>
-            </Col>
-          ))}
-        </>
-        )}
-        
-        else{
-          return <h1>Select your Favorite Restaurant</h1>
+                top
+                style={{ height: 150, width: 150, objectFit: "cover" }}
+                src={
+                  dish.attributes.image.data[0].attributes.url
+                    ? `${API_URL}${dish.attributes.image.data[0].attributes.url}`
+                    : `${router.basePath}`
+                }
+              />
+              <CardBody>
+                <CardTitle>{dish.attributes.name}</CardTitle>
+                <CardText>{dish.attributes.description}</CardText>
+              </CardBody>
+              <div className="card-footer">
+                <Button
+                  outline
+                  color="primary"
+                  onClick={() => addItem(dish)}
+                >
+                  + Add To Cart
+                </Button>
+              </div>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    );
+  } else {
+    // Wenn keine Restaurant-ID ausgewählt ist, zeige alle Gerichte von allen Restaurants
+    const GET_ALL_RESTAURANTS = gql`
+      query GetAllRestaurants  {
+        restaurants {
+          data {
+            id
+            attributes {
+              dishes {
+                data {
+                  id
+                  attributes {
+                    name
+                    description
+                    price
+                    image {
+                      data {
+                        attributes {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
-    }
-    
-    export default Dishes
+      }
+    `;
+
+    const { loading, error, data } = useQuery(GET_ALL_RESTAURANTS);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const dishes = data.restaurants.data
+      .map((res) => res.attributes.dishes.data)
+      .reduce((acc, curr) => acc.concat(curr), []);
+
+    return (
+      <Row>
+        {dishes.map((dish) => (
+          <Col key={dish.id} xs="6" sm="4">
+            <Card>
+              <CardImg
+                top
+                style={{ height: 150, width: 150, objectFit: "cover" }}
+                src={
+                  dish.attributes.image.data[0].attributes.url
+                    ? `${API_URL}${dish.attributes.image.data[0].attributes.url}`
+                    : `${router.basePath}`
+                }
+              />
+              <CardBody>
+                <CardTitle>{dish.attributes.name}</CardTitle>
+                <CardText>{dish.attributes.description}</CardText>
+              </CardBody>
+              <div className="card-footer">
+                <Button
+                  outline
+                  color="primary"
+                  onClick={() => addItem(dish)}
+                >
+                  + Add To Cart
+                </Button>
+              </div>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    );
+  }
+}
+
+export default Dishes;

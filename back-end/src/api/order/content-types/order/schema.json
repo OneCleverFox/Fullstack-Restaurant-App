@@ -23,6 +23,12 @@
     },
     "amount": {
       "type": "biginteger"
+    },
+    "Dishes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dishe.dishe",
+      "mappedBy": "order"
     }
   }
 }

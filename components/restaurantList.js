@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 
 function RestaurantList(props) {
-  const [restaurantID, setRestaurantID] = useState(0)
+  const [restaurantID, setRestaurantID] = useState()
   const { cart } = useContext(AppContext);
   const [state, setState] = useState(cart)
   const GET_RESTAURANTS = gql`
@@ -43,7 +43,7 @@ function RestaurantList(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>ERROR</p>;
   if (!data) return <p>Not found</p>;
-  console.log(`Query Data: ${data.restaurants.data}`)
+  // console.log(`Query Data: ${data.restaurants.data}`)
   
 
 
@@ -51,12 +51,20 @@ function RestaurantList(props) {
     return res.attributes.name.toLowerCase().includes(props.search)
   }) || [];
 
-  let restId = searchQuery[0] ? searchQuery[0].id : null;
+  let restaurantId = searchQuery[0] ? searchQuery[0].id : null;
 
-  // definet renderer for Dishes
-  const renderDishes = (restaurantID) => {
-    return (<Dishes restId={restaurantID} search={props.search}> </Dishes>)
+// debugging console logs
+  console.log("restaurantId from restaurantList.js : ", restaurantId);  
+  console.log("searchQuery from restaurantList.js: ", searchQuery);
+  console.log("resid:", searchQuery.map((res) => res.id));
+
+
+  // defined renderer for Dishes
+  const renderDishes = (restaurantId) => {
+    return <Dishes restaurantId={restaurantId} search={props.search} />;
   };
+
+
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
       <Col xs="6" sm="4" key={res.id}>
@@ -74,7 +82,9 @@ function RestaurantList(props) {
           </CardBody>
           <div className="card-footer">
 
-            <Button color="info" onClick={() => setRestaurantID(res.id)}>{res.attributes.name}</Button>
+            <Button color="info" onClick={() => setRestaurantID(res.id)}>
+                  {res.attributes.name}
+            </Button>
 
           </div>
         </Card>
@@ -89,7 +99,7 @@ function RestaurantList(props) {
         </Row>
 
         <Row xs='3'>
-          {renderDishes(restaurantID)}
+        <Dishes restaurantId={restaurantId} search={props.search} />
         </Row>
 
       </Container>
@@ -99,4 +109,5 @@ function RestaurantList(props) {
     return <h1> No Restaurants Found</h1>
   }
 }
+
 export default RestaurantList
