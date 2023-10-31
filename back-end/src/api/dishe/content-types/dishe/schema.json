@@ -27,7 +27,7 @@
       ]
     },
     "price": {
-      "type": "float"
+      "type": "biginteger"
     },
     "restaurant": {
       "type": "string"

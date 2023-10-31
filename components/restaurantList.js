@@ -53,10 +53,10 @@ function RestaurantList(props) {
 
   let restaurantId = searchQuery[0] ? searchQuery[0].id : null;
 
-// debugging console logs
-  console.log("restaurantId from restaurantList.js : ", restaurantId);  
-  console.log("searchQuery from restaurantList.js: ", searchQuery);
-  console.log("resid:", searchQuery.map((res) => res.id));
+// *** debugging console logs ***
+  //console.log("restaurantId from restaurantList.js : ", restaurantId);  
+  //console.log("searchQuery from restaurantList.js: ", searchQuery);
+  //console.log("resid:", searchQuery.map((res) => res.id));
 
 
   // defined renderer for Dishes
@@ -72,8 +72,7 @@ function RestaurantList(props) {
           <CardImg
             top={true}
             style={{ height: 200 }}
-            src={`http://localhost:1337${res.attributes.image.data[0].attributes.url}`}
-            
+            src={`http://localhost:1337${res.attributes.image.data[0].attributes.url}`}         
 
 
           />

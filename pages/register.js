@@ -14,6 +14,8 @@ import {
 } from "reactstrap";
 import { registerUser } from "../components/auth";
 import AppContext from "../components/context";
+import Layout from "../components/layout";
+
 
 // State-Variablen zur Verwaltung von Benutzereingaben und UI-Status
 const Register = () => {
@@ -27,10 +29,11 @@ const Register = () => {
   // Funktion zum Speichern des Benutzernamens im lokalen Speicher (localStorage)
   const setUsername = (username) => {
     if(typeof window !== 'undefined') {
-      console.log('register');
+      console.log('register :',username);
     localStorage.setItem("username", username);
     }
   }
+  
   return (
     <Container>
       <Row>
@@ -109,18 +112,23 @@ const Register = () => {
                          // Registriere den Benutzer und setze ihn im globalen Kontext-Objekt
                         registerUser(data.username, data.email, data.password)
                           .then((res) => {
+                            console.log("register.js - Registrierung erfolgreich:", res);
                             // Setze den authentifizierten Benutzer im globalen Kontext, um den Header/Anwendungsstatus zu aktualisieren
                             appContext.setUser(res.data.user);
                             setLoading(false);
                             console.log(`registered user: ${JSON.stringify(res.data)}`)
                             // Speichere den Benutzernamen im lokalen Speicher
                             setUsername(res.data.user.username);
+
+                            appContext.setIsAuthenticated(true);
+                            
                             alert("Account Created");
                           })
                           .catch((error) => {
                             console.log(`error in register: ${error}`)
                             //setError(error.response.data);
                             setLoading(false);
+                            
                           });
                       }}
                     >

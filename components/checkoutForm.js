@@ -54,6 +54,8 @@ function CheckoutForm() {
       }),
     });
 
+    console.log("Response from checkotforn.js:".response)
+    
     if (!response.ok) {
       setError(response.statusText);
       console.log("SUCCESS")

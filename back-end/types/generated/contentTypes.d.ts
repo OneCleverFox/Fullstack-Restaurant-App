@@ -692,7 +692,7 @@ export interface ApiDisheDishe extends Schema.CollectionType {
     name: Attribute.String;
     description: Attribute.String;
     image: Attribute.Media;
-    price: Attribute.Float;
+    price: Attribute.BigInteger;
     restaurant: Attribute.String;
     order: Attribute.Relation<
       'api::dishe.dishe',
@@ -738,6 +738,8 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'oneToMany',
       'api::dishe.dishe'
     >;
+    state: Attribute.Text;
+    token: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

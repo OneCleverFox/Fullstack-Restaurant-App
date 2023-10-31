@@ -16,8 +16,9 @@ import { login } from "../components/auth";
 import AppContext from "../components/context";
 
 
+
 // State-Variablen zur Verwaltung von Benutzereingaben und UI-Status
-function Login(props) {
+function Login(props) {  
   const [data, updateData] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -38,7 +39,7 @@ function Login(props) {
   function onChange(event) {
     updateData({ ...data, [event.target.name]: event.target.value });
   }
-
+  
   return (
     <Container>
       <Row>
@@ -98,6 +99,13 @@ function Login(props) {
                             setLoading(false);
                             // Setze den authentifizierten Benutzer im globalen Kontext, um den Header/Anwendungsstatus zu aktualisieren
                             appContext.setUser(res.data.user);
+                            
+
+                            // *** Debugging ***
+                            console.log("User from login.js:",res.data.user)                            
+                            console.log("res from login.js:",res)
+                            console.log("res from login.js:",res.data)
+
                           })
                           .catch((error) => {
                             setError(error.response.data);

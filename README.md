@@ -19,6 +19,7 @@ MONGO_INITDB_ROOT_PASSWORD=generate strong Password
 
 4-"docker-compose up"  to start the backend files, 
 and build and run the image from the Dockerfile to get the front end running.  
+5- start the  Dockerfile in the main directory
 
 
 

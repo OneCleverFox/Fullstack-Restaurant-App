@@ -24,8 +24,8 @@ function Cart() {
           return (
             <div className="items-one" style={{ marginBottom: 15 }} key={item.id}>
               <div>
-                <span id="item-price">&nbsp; ${item.price}</span>
-                <span id="item-name">&nbsp; {item.name}</span>
+                <span id="item-price">&nbsp; ${item.attributes.price}</span>
+                <span id="item-name">&nbsp; {item.attributes.name}</span>
               </div>
               <div>
                 <Button
@@ -66,6 +66,12 @@ function Cart() {
       return <div></div>;
     }
   };
+
+// debuggung logs
+//console.log("Cart from cart.js:", cart)
+//console.log("Cart.total  from cart.js:", cart.total)
+// console.log("AppContext from cart.js :", AppContext)
+
 
   // Funktion zum Anzeigen der Checkout-Elemente
   const checkoutItems = () => {

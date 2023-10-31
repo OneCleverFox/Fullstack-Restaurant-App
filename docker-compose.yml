@@ -34,12 +34,23 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    networks:
-      - strapi-app-network
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
     volumes:
       - strapidata:/data/db
     ports:
       - "27017:27017"
+
+
+
+  reactapp:
+    build:
+      context: .
+      dockerfile: Dockerfile # Verweise auf dein Dockerfile für die React-Anwendung
+    container_name: reactexample
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+
 
 networks:
   strapi-app-network:

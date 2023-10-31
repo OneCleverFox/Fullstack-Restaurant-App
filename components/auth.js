@@ -5,6 +5,7 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import axios from "axios";
 
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
 
 // Registriere einen neuen Benutzer
@@ -13,9 +14,17 @@ export const registerUser = (username, email, password) => {
   if (typeof window === "undefined") {
     return;
   }
+
+  // *** Debugging ***
+  //console.log('Registriere Benutzer:');
+  console.log('Benutzername:', username);
+  console.log('E-Mail:', email);
+  console.log('Passwort:', password);
+  // *** Debugging ***
+
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/auth/local/register`, { username, email, password })
+      .post(`${API_URL}/api/auth/local/register`, { username, email, password })
       .then((res) => {
         // Setze das Token, das von Strapi für die Servervalidierung zurückgegeben wird
         Cookie.set("token", res.data.jwt);
@@ -33,15 +42,24 @@ export const registerUser = (username, email, password) => {
   });
 };
 
+
 export const login = (identifier, password) => {
   // Verhindere das Ausführen der Funktion auf dem Server
   if (typeof window === "undefined") {
     return;
   }
 
+
+  // *** Debugging ***
+  //console.log('Benutzeranmeldung:');
+  console.log('Identifier:', identifier);
+  console.log('Passwort:', password);
+  
+  // *** Debugging ***
+
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/auth/local/`, { identifier, password })
+      .post(`${API_URL}/api/auth/local/`, { identifier, password })
       .then((res) => {
         // Setze das Token, das von Strapi für die Servervalidierung zurückgegeben wird
         Cookie.set("token", res.data.jwt);

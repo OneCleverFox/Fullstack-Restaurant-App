@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Container, Nav, NavItem } from "reactstrap";
-import AppContext from "./context";
+import AppContext from "../components/context";
 
 
 
@@ -16,7 +16,14 @@ const getUsername = () => {
 
 const Layout = (props) => {
 const title = "Restaurant App";
-const {user} = useContext(AppContext);
+const {user,logout,setUser} = useContext(AppContext);
+
+
+// *** Debugging ***
+console. log("User from Contect in layout:", user)
+console.log("AppContext in layout:", useContext(AppContext));
+
+
   return (
     <div suppressHydrationWarning>
       <Head>
@@ -59,6 +66,9 @@ const {user} = useContext(AppContext);
               </Link>
             )}
           </NavItem>
+
+
+
           <NavItem>
             {user ? (
               <Link href="/">
@@ -66,7 +76,7 @@ const {user} = useContext(AppContext);
                   className="nav-link"
                   onClick={() => {
                     logout();
-                    setUser(null);
+                    setUser(null); // set user after logout to "null"
                   }}
                 >
                   Logout
@@ -78,6 +88,10 @@ const {user} = useContext(AppContext);
               </Link>
             )}
           </NavItem>
+
+
+
+
           <div suppressHydrationWarning style={{color: "white"}}>
               {getUsername()}
             </div>
@@ -85,6 +99,7 @@ const {user} = useContext(AppContext);
       </header>
       <Container>{props.children}</Container>
     </div>
+    
   );
 };
 

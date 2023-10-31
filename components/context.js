@@ -13,4 +13,5 @@ const AppContext = React.createContext(
         user:false, 
         setUser:()=>{}
     });
+    
 export default AppContext;

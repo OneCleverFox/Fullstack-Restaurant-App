@@ -42,7 +42,7 @@ function MyApp(props){
       temp.quantity = 1;
       var newCart = {
           items: [...state.cart.items,temp],
-          total: state.cart.total + item.price,
+          total: state.cart.total + item.attributes.price,
       }
 
       // Aktualisiere den lokalen Zustand
@@ -58,7 +58,7 @@ function MyApp(props){
              }else{
             return item;
           }}),
-          total: state.cart.total + item.price,
+          total: state.cart.total + item.attributes.price,
         }
     }
     setState({cart: newCart});  // problem is this is not updated yet
@@ -79,20 +79,20 @@ function MyApp(props){
          }else{
         return item;
       }}),
-      total: state.cart.total - item.price,
+      total: state.cart.total - item.attributes.price,
       }
       console.log(`NewCart after remove: ${JSON.stringify(newCart)}`)
     } else { 
       console.log(`Try remove item ${JSON.stringify(foundItem)}`)
       const index = items.findIndex((i) => i.id === foundItem.id);
       items.splice(index, 1);
-      var newCart= { items: items, total: state.cart.total - item.price } 
+      var newCart= { items: items, total: state.cart.total - item.attributes.price } 
     }
     setState({cart:newCart});
   }
 
   return (
-    <AppContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem,isAuthenticated:false,user:null,setUser:()=>{}}}>
+    <AppContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem,isAuthenticated:false,user:user,setUser:()=>{}}}>
       <Head>
       <link
           rel="stylesheet"

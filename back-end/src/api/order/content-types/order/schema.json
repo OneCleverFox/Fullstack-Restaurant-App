@@ -29,6 +29,12 @@
       "relation": "oneToMany",
       "target": "api::dishe.dishe",
       "mappedBy": "order"
+    },
+    "state": {
+      "type": "text"
+    },
+    "token": {
+      "type": "string"
     }
   }
 }
