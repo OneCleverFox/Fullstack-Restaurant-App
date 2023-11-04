@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-example-deployment
+  labels:
+    app: react-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-example
+  template:
+    metadata:
+      labels:
+        app: react-example
+    spec:
+      containers:
+      - name: reactexample
+        image: gcr.io/wise-logic-401107/react-app:latest
+        env:
+          - name: GOOGLE_API_KEY
+            value: ${GOOGLE_API_KEY}
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+spec:
+  selector:
+    app: react-example
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer

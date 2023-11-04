@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-example-deployment
+  labels:
+    app: mongo-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-example
+  template:
+    metadata:
+      labels:
+        app: mongo-example
+    spec:
+      containers:
+      - name: mongoexample
+        image: gcr.io/wise-logic-401107/mongo:latest
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: ${MONGO_INITDB_ROOT_USERNAME}
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: ${MONGO_INITDB_ROOT_PASSWORD}
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: "0"
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-volume
+          mountPath: /data/db
+      volumes:
+      - name: mongo-volume
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  selector:
+    app: mongo-example
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: LoadBalancer
+
+

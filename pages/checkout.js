@@ -16,8 +16,8 @@ function Checkout() {
   
   // lade stripe mit Test User
   const stripePromise = loadStripe(
-    //"pk_test_f3duw0VsAEM2TJFMtWQ90QAT"
-    "pk_test_51NxpOFA6vcxvtzKWLxUWvcn5dr31zYZ9iLFKxxhdNC6CX7A5cMv2VWD871uTFHCYIEV5ujlf5WNxtLg0B7UrP2Cc00YmW226el"
+    "pk_test_f3duw0VsAEM2TJFMtWQ90QAT"
+    //"pk_test_51NxpOFA6vcxvtzKWLxUWvcn5dr31zYZ9iLFKxxhdNC6CX7A5cMv2VWD871uTFHCYIEV5ujlf5WNxtLg0B7UrP2Cc00YmW226el"
   );
 
   return (

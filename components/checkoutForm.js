@@ -54,8 +54,9 @@ function CheckoutForm() {
       }),
     });
 
-    console.log("Response from checkotforn.js:".response)
+    console.log("Response from checkoutform.js:",appContext)
     
+
     if (!response.ok) {
       setError(response.statusText);
       console.log("SUCCESS")

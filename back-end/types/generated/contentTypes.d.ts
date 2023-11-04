@@ -732,7 +732,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     address: Attribute.String;
     city: Attribute.String;
     dishes: Attribute.JSON;
-    amount: Attribute.BigInteger;
+    amount: Attribute.Integer;
     Dishes: Attribute.Relation<
       'api::order.order',
       'oneToMany',

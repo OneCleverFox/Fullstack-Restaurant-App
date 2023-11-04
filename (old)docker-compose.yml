@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strapi-example-deployment
+  labels:
+    app: strapi-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: strapi-example
+  template:
+    metadata:
+      labels:
+        app: strapi-example
+    spec:
+      containers:
+      - name: strapiexample
+        image: gcr.io/wise-logic-401107/strapi-example:latest
+        env:
+          - name: DATABASE_CLIENT
+            value: ${DATABASE_CLIENT}
+          - name: DATABASE_NAME
+            value: ${DATABASE_NAME}
+          - name: DATABASE_HOST
+            value: ${DATABASE_HOST}
+          - name: DATABASE_PORT
+            value: ${DATABASE_PORT}
+          - name: DATABASE_USERNAME
+            value: ${DATABASE_USERNAME}
+          - name: DATABASE_PASSWORD
+            value: ${DATABASE_PASSWORD}
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: "0"
+          - name: GOOGLE_API_KEY
+            value: ${GOOGLE_API_KEY}
+        ports:
+        - containerPort: 1337
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-example-deployment
+  labels:
+    app: mongo-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-example
+  template:
+    metadata:
+      labels:
+        app: mongo-example
+    spec:
+      containers:
+      - name: mongoexample
+        image: gcr.io/wise-logic-401107/mongo:latest
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: ${MONGO_INITDB_ROOT_USERNAME}
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: ${MONGO_INITDB_ROOT_PASSWORD}
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: "0"
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-volume
+          mountPath: /data/db
+      volumes:
+      - name: mongo-volume
+        emptyDir: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-example-deployment
+  labels:
+    app: react-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-example
+  template:
+    metadata:
+      labels:
+        app: react-example
+    spec:
+      containers:
+      - name: reactexample
+        image: gcr.io/wise-logic-401107/react-app:latest
+        env:
+          - name: GOOGLE_API_KEY
+            value: ${GOOGLE_API_KEY}
+        ports:
+        - containerPort: 3000

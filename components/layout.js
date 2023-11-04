@@ -24,6 +24,7 @@ console. log("User from Contect in layout:", user)
 console.log("AppContext in layout:", useContext(AppContext));
 
 
+
   return (
     <div suppressHydrationWarning>
       <Head>

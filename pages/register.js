@@ -119,8 +119,6 @@ const Register = () => {
                             console.log(`registered user: ${JSON.stringify(res.data)}`)
                             // Speichere den Benutzernamen im lokalen Speicher
                             setUsername(res.data.user.username);
-
-                            appContext.setIsAuthenticated(true);
                             
                             alert("Account Created");
                           })

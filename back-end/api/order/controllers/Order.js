@@ -6,9 +6,8 @@
  * @description: A set of functions called "actions" for managing `Order`.
  */
 // note that this needs to be a "private" key from STRIPE
-const stripe = require('stripe')(
-  'sk_test_51NxpOFA6vcxvtzKWbcpDPm6M9x5pKXevtDeOCliwWeXsYzZAxEbEqCl1wxSYg0mJXLZdJcnK72TavrThYrODdeCU007z8T3Mj1'
-);
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+// sk_test_51NxpOFA6vcxvtzKWbcpDPm6M9x5pKXevtDeOCliwWeXsYzZAxEbEqCl1wxSYg0mJXLZdJcnK72TavrThYrODdeCU007z8T3Mj1
 module.exports = {
   /**
    * Create a/an order record.
