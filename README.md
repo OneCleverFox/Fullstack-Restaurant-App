@@ -32,6 +32,5 @@ bootstrap --> reactstrap
 
 next.js
 React
-Strapi
-MongoDB
+Strapi V4
 Stripe for payment
