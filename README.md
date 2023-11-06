@@ -16,6 +16,10 @@ DATABASE_USERNAME=generate User
 DATABASE_PASSWORD=generate strong Password
 MONGO_INITDB_ROOT_USERNAME=what's the username?!
 MONGO_INITDB_ROOT_PASSWORD=generate strong Password
+
+NEXT_PUBLIC_API_URL=http://localhost:1337
+
+GOOGLE_API_KEY=Ur API Key
 ```
 
 3. Go to the main file and start the frontend with "npm run dev".
