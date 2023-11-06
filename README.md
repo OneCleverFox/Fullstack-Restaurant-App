@@ -1,36 +1,43 @@
-# Fullstack-Restaurant-App
+# Fullstack Restaurant App
 
 **Description:**
-Full-Stack Restaurant App that was built with Front-End architecture developed with Next.js using React, a Strapi/MongoDB database, that allows the user to log in, become authenticated, order from restuarants and submit a payment using Stripe.  
+A Full-Stack Restaurant App built with a front-end architecture using Next.js with React, a Strapi/MongoDB database, which allows users to log in, authenticate, order from restaurants, and make payments using Stripe.
 
 **How to Run:**
-1-To Run on your machine, pull the files into a local folder,
-2-install Docker, 
-3-generate a .env file with following input:
+1. To run the app on your local machine, clone the files into a local directory.
+2. Create a .env file with the following inputs:
 
+```plaintext
 DATABASE_CLIENT=mongo
 DATABASE_NAME=strapi
-DATABASE_HOST=e.g.Mongo
+DATABASE_HOST=e.g. Mongo
 DATABASE_PORT=generate Port e.g. 27017
 DATABASE_USERNAME=generate User
 DATABASE_PASSWORD=generate strong Password
-MONGO_INITDB_ROOT_USERNAME=whats the username?!
+MONGO_INITDB_ROOT_USERNAME=what's the username?!
 MONGO_INITDB_ROOT_PASSWORD=generate strong Password
+```
 
-4-"docker-compose up"  to start the backend files, 
-and build and run the image from the Dockerfile to get the front end running.  
-5- start the  Dockerfile in the main directory
+3. Go to the main file and start the frontend with "npm run dev".
+4. Open the back-end file and start it with "npm run develop".
+5. Visit "http://localhost" to use the application locally.
 
-
+**Using Docker:**
+1. Install Docker.
+2. Use "docker-compose up" to start the backend services and build/run the image from the Dockerfile to get the front end running.
+3. Start the Dockerfile in the main directory.
 
 **Styles:**
-bootstrap --> reactstrap
+- Bootstrap
+- Reactstrap
 
+**Architecture/Technologies:**
+- Next.js
+- React
+- Strapi V4
+- Stripe for payment
+- GraphQL
+- Apollo
 
-
-**Architecture/Technologie:**
-
-next.js
-React
-Strapi V4
-Stripe for payment
+**Note:**
+Please ensure you have the necessary dependencies installed before running the application. For more information on configuration and usage, refer to the documentation of the respective technologies mentioned.
