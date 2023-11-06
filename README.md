@@ -20,7 +20,7 @@ MONGO_INITDB_ROOT_PASSWORD=generate strong Password
 
 3. Go to the main file and start the frontend with "npm run dev".
 4. Open the back-end file and start it with "npm run develop".
-5. Visit "http://localhost" to use the application locally.
+5. Visit "http://localhost:3000" to use the application locally.
 
 **Using Docker:**
 1. Install Docker.
